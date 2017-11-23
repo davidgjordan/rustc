@@ -1,36 +1,19 @@
 
-fn factorial(n:i32)->i32{
+fn getAnio(date:i32)->i32{
 
- if n == 1{
- 	return 1;
- }else{
- 	return n*factorial(n-1);
- } 
-
+	return date/10000;
 }
-
-fn esPar(n:i32){
-	if(n%2==0){
-	println!("Es par");
-		 
-	}else{
-	println!("Es impar");
-
-	}
+fn getMonth(date:i32)->i32{
+	return (date%10000)/100;
 }
-
+fn getDay(date:i32)->i32{
+	return (date%10000)%100;
+}
 	
 	fn isValidDate(date:i32)->bool{
-	    let mut auxDate = date;
-		let anio = auxDate/10000;
-		auxDate = auxDate%10000;
-		let mes = auxDate/100;
-		auxDate = auxDate % 100; 
-		let dia = auxDate;
-
-		println!("Anio:{}",anio );
-		println!("mes:{}",mes );
-		println!("dia:{}",dia );
+		let anio = getAnio(date);
+		let mes = getMonth(date);
+		let dia = getDay(date);
 
 
 		//si tenemos un ano correcto y un mes correcto segun a sus dias
@@ -97,43 +80,33 @@ fn esPar(n:i32){
 	fn isYearBiciesto(a:i32)->bool{
 		/*si es multiplo de cuatro es anio biciesto*/
 		/*cada 4 anios es biciesto execto si ese anio es multiplo de 100*/
-		if(a % 4 == 0 && a % 100 != 0 ){
-			return true;
+		//primero si es un anio valido
+		if(isValidYear(a)){
+			//si es biciesto o no
+			if(a % 4 == 0 && a % 100 != 0 ){
+				return true;
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}
 	}
 
 fn main() {
-	//variables let como auto en c++->  let obliga  a inicializar mis variables
-	//let r = factorial(8);
-	//let p = esPar(6);
-
-
-	//println!("FActorial:{:?}",r );
-	//println!("Hello:{}",r );
 	
-
-	let date = 20170229;
+	let date = 20171115;
 
 	if(isValidDate(date)){
-		let mut auxDate = date;
-		let anio = auxDate/10000;
-		auxDate = auxDate%10000;
-		let mes = auxDate/100;
-		auxDate = auxDate % 100; 
-		let dia = auxDate;
-		println!("Fecha correcta:");
-		println!("Fecha anio:{}",anio);
-		println!("Fecha mes:{}",mes);
-		println!("Fecha dia:{}",dia);
+		
+		println!("Fecha correcta: ");
+		println!("Fecha anio: {}",getAnio(date));
+		println!("Fecha mes: {}",getMonth(date));
+		println!("Fecha dia: {}",getDay(date));
 
 	}else{
 		println!("Invalid date");
 	}
-
-
-
 
 
 }
